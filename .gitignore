@@ -1,0 +1,7 @@
+*.suo
+/.vs
+/packages
+/WeatherApi/bin
+/WeatherApi/obj/
+/WeatherApi/bin/
+/WeatherApi/bower_components/

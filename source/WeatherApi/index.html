@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.2.js'></script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script type='text/javascript' src='content/js/application.js' defer></script>
+    <title>Forecast</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./content/css/weather.css">
+</head>
+<body data-bind="foreach: theValues">
+    <div class="container-fluid">
+        <form>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 alert alert-info" role="alert">
+                    <h4 class="alert-heading text-center" data-bind="text: Name"></h4>
+                    <div class="row">
+                        <div class="d-none d-lg-block col-lg-2 text-right">
+                            Current Location:
+                        </div>
+                        <div class="d-none d-lg-block col-lg-2 text-center">
+                            <input type="number" readonly step="0.01" class="form-control" placeholder="lat" id="txlat" name="txlat" data-bind="value: Coord.Lat">
+                        </div>
+                        <div class="d-none d-lg-block col-lg-2 text-center">
+                            <input type="number" readonly step="0.01" class="form-control" placeholder="long" id="txlon" data-bind="value: Coord.Lon">
+                        </div>
+                        <div class="d-none d-lg-block col-lg-2 text-center">
+                            <a href="./swagger/">Api Doc</a>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 text-center">
+                            <div class="btn-group" role="group" aria-label="Farenheit / Celcius">
+                                <button type="button" class="btn btn-secondary btnUnits" id="btSetImperial" data-bind="class: units() == 'imperial' ? 'active' : '' ">Fº</button>
+                                <button type="button" class="btn btn-secondary btnUnits" id="btSetMetrical" data-bind="class: units() == 'metrical' ? 'active' : ''">Cº</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row justify-content-center">
+                    <div class="box">
+                        <div class="day-header bg-aqua">
+                            <h4 class="day-title ">Today</h4>
+                            <h5 class="day-desc" data-bind="text: Current.Date">-</h5>
+                            <h4 class="day-desc" data-bind="text: Current.Main">-</h4>
+                        </div>
+                        <div class="d-none d-md-block day-description">
+                            <h4 class="txDescription" data-bind="text: Current.Description">-</h4>
+                        </div>
+                        <div class="day-image">
+                            <img class="img-circle" src="" alt="Icon" data-bind="attr: {src: '//developer.accuweather.com/sites/default/files/' + Current.Icon() +'-s.png'}">
+                        </div>
+                        <div class="day-footer">
+                            <div class="row">
+                                <div class="col-sm-3 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Temp.</h5>
+                                        Max: <span class="description-text" data-bind="text: Current.TempMax">-</span>
+                                        - Min: <span class="description-text" data-bind="text: Current.TempMin">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Hum.</h5>
+                                        <span class="description-text" data-bind="text: Current.Humidity">-</span>%
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Wind</h5>
+                                        <span class="description-text" data-bind="text: Current.Wind">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="description-block">
+                                        <h5 class="description-header">Rain</h5>
+                                        <span class="description-text" data-bind="text: Current.Rain">-</span>%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <div class="row justify-content-center" data-bind="foreach: Predictions">
+                    <div class="col-sm-6 col-md-6 col-lg-4">
+                        <div class="box">
+                            <div class="day-header bg-aquaLow">
+                                <h4 class="day-title" data-bind="text: DayName">-</h4>
+                                <h5 class="day-desc" data-bind="text: Date">-</h5>
+                                <h5 class="day-desc" data-bind="text: Main">-</h5>
+                            </div>
+                            <div class="day-image">
+                                <img class="img-circle" src="" alt="Icon" data-bind="attr: {src: '//developer.accuweather.com/sites/default/files/' + Icon() +'-s.png'}">
+                            </div>
+                            <div class="day-footer">
+                                <div class="row">
+                                    <div class="col-sm-6 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header">Max.</h5>
+                                            <span class="description-text" data-bind="text: TempMax">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header">Min.</h5>
+                                            <span class="description-text" data-bind="text: TempMin">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
