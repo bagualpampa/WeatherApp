@@ -1,7 +1,7 @@
 *.suo
 /.vs
-/packages
-/WeatherApi/bin
-/WeatherApi/obj/
-/WeatherApi/bin/
-/WeatherApi/bower_components/
+source/packages
+source/WeatherApi/bin
+source/WeatherApi/obj/
+source/WeatherApi/scripts/
+source/WeatherApi/Areas/
