@@ -29,3 +29,20 @@ iisexpress /path:d:\weatherapi\ /port:9090 /clr:v4.0
 License
 ----
 MIT
+----
+
+### ScreenShots:
+   
+   - Large Screen
+
+   ![Large Screen](/weatherLarge.png)
+
+
+   - Medium Screen
+
+   ![Medium Screen](/weatherMiddle.png)
+
+
+   - Small Screen
+
+   ![XS Screen](/weatherSmall.png)
